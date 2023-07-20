@@ -11,8 +11,8 @@ using TekkenPortugal.WebApi.Data;
 namespace TekkenPortugal.WebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230715002718_Initial")]
-    partial class Initial
+    [Migration("20230720212321_Article")]
+    partial class Article
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,10 @@ namespace TekkenPortugal.WebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Thumbnail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
