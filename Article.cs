@@ -6,6 +6,8 @@
 
         public int UserId { get; set; }
 
+        public User User { get; set; }
+
         public string Hero { get; set; } = string.Empty;
 
         public string Thumbnail { get; set; } = string.Empty;
