@@ -19,5 +19,7 @@
         public DateTime? LastUpdated { get; set; }
 
         public bool IsDeleted { get; set; } = false;
+
+        public ICollection<Role> Roles { get; set; } = new List<Role>();
     }
 }
