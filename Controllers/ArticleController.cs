@@ -20,7 +20,7 @@ namespace TekkenPortugal.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Article>>> GetArticle()
         {
-            return Ok(await _context.Article.ToListAsync());
+            return Ok(await _context.Articles.ToListAsync());
         }
     }
 }

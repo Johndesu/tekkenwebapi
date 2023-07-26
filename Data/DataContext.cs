@@ -6,6 +6,12 @@ namespace TekkenPortugal.WebApi.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Article> Article => Set<Article>();
+        public DbSet<User> Users => Set<User>();
+
+        public DbSet<Article> Articles => Set<Article>();
+
+        public DbSet<Category> Categories => Set<Category>();
+
+        public DbSet<Tag> Tags => Set<Tag>();
     }
 }
