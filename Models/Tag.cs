@@ -1,6 +1,6 @@
-﻿namespace TekkenPortugal.WebApi
+﻿namespace TekkenPortugal.WebApi.Models
 {
-    public class Category
+    public class Tag
     {
         public int Id { get; set; }
         public string Description { get; set; } = string.Empty;

@@ -1,10 +1,9 @@
-﻿namespace TekkenPortugal.WebApi
+﻿namespace TekkenPortugal.WebApi.Models
 {
-    public class Role
+    public class Category
     {
         public int Id { get; set; }
-
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
@@ -12,6 +11,6 @@
 
         public bool IsDeleted { get; set; } = false;
 
-        public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Article> Articles { get; set; } = new List<Article>();
     }
 }

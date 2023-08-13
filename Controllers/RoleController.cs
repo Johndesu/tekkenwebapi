@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TekkenPortugal.WebApi.Data;
+using TekkenPortugal.WebApi.Models;
 
-namespace TekkenPortugal.WebApi
+namespace TekkenPortugal.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +16,7 @@ namespace TekkenPortugal.WebApi
         {
             _context = context;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
@@ -23,7 +24,7 @@ namespace TekkenPortugal.WebApi
             {
                 var roles = await _context.Roles
                     .Where(role => !role.IsDeleted)
-                    .Select(role => new { role.Id, role.Description})
+                    .Select(role => new { role.Id, role.Description })
                     .OrderBy(role => role.Description)
                     .ToListAsync();
                 return Ok(roles);

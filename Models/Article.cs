@@ -1,4 +1,4 @@
-﻿namespace TekkenPortugal.WebApi
+﻿namespace TekkenPortugal.WebApi.Models
 {
     public class Article
     {

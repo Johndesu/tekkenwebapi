@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TekkenPortugal.WebApi.Models;
 
 namespace TekkenPortugal.WebApi.Data
 {

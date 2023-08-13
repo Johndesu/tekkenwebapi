@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TekkenPortugal.WebApi.Data;
+using TekkenPortugal.WebApi.Models;
 
 namespace TekkenPortugal.WebApi.Controllers
 {
@@ -22,5 +23,6 @@ namespace TekkenPortugal.WebApi.Controllers
         {
             return Ok(await _context.Articles.ToListAsync());
         }
+
     }
 }
