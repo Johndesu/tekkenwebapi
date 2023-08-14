@@ -1,10 +1,10 @@
-﻿namespace TekkenPortugal.WebApi.Models
+﻿namespace TekkenPortugal.WebApi.Models.Domain
 {
     public class Role
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 

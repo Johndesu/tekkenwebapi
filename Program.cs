@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TekkenPortugal.WebApi.Data;
+using TekkenPortugal.WebApi.Models.Domain;
+using TekkenPortugal.WebApi.Repositories.Implementation;
+using TekkenPortugal.WebApi.Repositories.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +21,10 @@ builder.Services.AddSwaggerGen( c =>
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});   
+});
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 
 var app = builder.Build();
 
@@ -30,6 +36,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+});
 
 app.UseAuthorization();
 

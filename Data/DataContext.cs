@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TekkenPortugal.WebApi.Models;
+using TekkenPortugal.WebApi.Models.Domain;
 
 namespace TekkenPortugal.WebApi.Data
 {
@@ -7,14 +7,14 @@ namespace TekkenPortugal.WebApi.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<User> Users => Set<User>();
+        public DbSet<User> Users { get; set; } 
 
-        public DbSet<Role> Roles => Set<Role>();
+        public DbSet<Role> Roles { get; set; }
 
-        public DbSet<Article> Articles => Set<Article>();
+        public DbSet<Article> Articles { get; set; }
 
-        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Tag> Tags => Set<Tag>();
+        public DbSet<Tag> Tags { get; set; }
     }
 }

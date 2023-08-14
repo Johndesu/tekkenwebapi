@@ -12,15 +12,15 @@ using TekkenPortugal.WebApi.Data;
 namespace TekkenPortugal.WebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230726230600_CreateTable_Roles_Migration")]
-    partial class CreateTable_Roles_Migration
+    [Migration("20230813161235_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -30,12 +30,12 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<int>("ArticlesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoriesId")
+                    b.Property<int>("Categoriesid")
                         .HasColumnType("int");
 
-                    b.HasKey("ArticlesId", "CategoriesId");
+                    b.HasKey("ArticlesId", "Categoriesid");
 
-                    b.HasIndex("CategoriesId");
+                    b.HasIndex("Categoriesid");
 
                     b.ToTable("ArticleCategory");
                 });
@@ -45,32 +45,32 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<int>("ArticlesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagsId")
+                    b.Property<int>("Tagsid")
                         .HasColumnType("int");
 
-                    b.HasKey("ArticlesId", "TagsId");
+                    b.HasKey("ArticlesId", "Tagsid");
 
-                    b.HasIndex("TagsId");
+                    b.HasIndex("Tagsid");
 
                     b.ToTable("ArticleTag");
                 });
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.Property<int>("RolesId")
+                    b.Property<int>("Rolesid")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersId")
+                    b.Property<int>("Usersid")
                         .HasColumnType("int");
 
-                    b.HasKey("RolesId", "UsersId");
+                    b.HasKey("Rolesid", "Usersid");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("Usersid");
 
                     b.ToTable("RoleUser");
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.Article", b =>
+            modelBuilder.Entity("TekkenPortugal.WebApi.Models.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,23 +113,23 @@ namespace TekkenPortugal.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("Userid")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Userid");
 
                     b.ToTable("Articles");
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.Category", b =>
+            modelBuilder.Entity("TekkenPortugal.WebApi.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -144,24 +144,23 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<DateTime?>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.Role", b =>
+            modelBuilder.Entity("TekkenPortugal.WebApi.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -170,18 +169,18 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<DateTime?>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.Tag", b =>
+            modelBuilder.Entity("TekkenPortugal.WebApi.Models.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -196,18 +195,18 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<DateTime?>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.User", b =>
+            modelBuilder.Entity("TekkenPortugal.WebApi.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -236,63 +235,61 @@ namespace TekkenPortugal.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ArticleCategory", b =>
                 {
-                    b.HasOne("TekkenPortugal.WebApi.Article", null)
+                    b.HasOne("TekkenPortugal.WebApi.Models.Article", null)
                         .WithMany()
                         .HasForeignKey("ArticlesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TekkenPortugal.WebApi.Category", null)
+                    b.HasOne("TekkenPortugal.WebApi.Models.Category", null)
                         .WithMany()
-                        .HasForeignKey("CategoriesId")
+                        .HasForeignKey("Categoriesid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ArticleTag", b =>
                 {
-                    b.HasOne("TekkenPortugal.WebApi.Article", null)
+                    b.HasOne("TekkenPortugal.WebApi.Models.Article", null)
                         .WithMany()
                         .HasForeignKey("ArticlesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TekkenPortugal.WebApi.Tag", null)
+                    b.HasOne("TekkenPortugal.WebApi.Models.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsId")
+                        .HasForeignKey("Tagsid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("TekkenPortugal.WebApi.Role", null)
+                    b.HasOne("TekkenPortugal.WebApi.Models.Role", null)
                         .WithMany()
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("Rolesid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TekkenPortugal.WebApi.User", null)
+                    b.HasOne("TekkenPortugal.WebApi.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("Usersid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.Article", b =>
+            modelBuilder.Entity("TekkenPortugal.WebApi.Models.Article", b =>
                 {
-                    b.HasOne("TekkenPortugal.WebApi.User", "User")
+                    b.HasOne("TekkenPortugal.WebApi.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Userid");
 
                     b.Navigation("User");
                 });

@@ -5,14 +5,14 @@
 namespace TekkenPortugal.WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Article : Migration
+    public partial class AddUrlHandleToCategory : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Title",
-                table: "Article",
+                name: "UrlHandle",
+                table: "Categories",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
@@ -22,8 +22,8 @@ namespace TekkenPortugal.WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Title",
-                table: "Article");
+                name: "UrlHandle",
+                table: "Categories");
         }
     }
 }

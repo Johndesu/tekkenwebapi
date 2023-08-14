@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TekkenPortugal.WebApi.Data;
-using TekkenPortugal.WebApi.Models;
+using TekkenPortugal.WebApi.Models.Domain;
+using TekkenPortugal.WebApi.Models.DTO;
+using TekkenPortugal.WebApi.Repositories.Interface;
 
 namespace TekkenPortugal.WebApi.Controllers
 {
@@ -10,18 +12,45 @@ namespace TekkenPortugal.WebApi.Controllers
     [ApiController]
     public class ArticleController : ControllerBase
     {
-        private readonly DataContext _context;
+        public readonly IArticleRepository articleRepository;
 
-        public ArticleController(DataContext context)
+        public ArticleController(IArticleRepository articleRepository)
         {
-            _context = context;
+            this.articleRepository = articleRepository;
         }
 
-
-        [HttpGet]
-        public async Task<ActionResult<List<Article>>> GetArticle()
+        //Create the Article Action
+        [HttpPost]
+        public async Task<IActionResult> CreateArticle(CreateArticleRequestDto request)
         {
-            return Ok(await _context.Articles.ToListAsync());
+            // Map DTO to Domain Model
+            var article = new Article
+            {
+                Hero = request.Hero,
+                Thumbnail = request.Thumbnail,
+                Title = request.Title,
+                Summary = request.Summary,
+                Content = request.Content,
+                PublishedAt = request.PublishedAt,
+                IsPublished = request.IsPublished
+
+            };
+
+            await articleRepository.CreateAsync(article);
+
+           
+
+            // Dpomain model to DTO
+
+            var response = new ArticleDto
+            {
+                Id = article.Id,
+                Title = article.Title
+
+            };
+
+            return Ok(response);
+
         }
 
     }

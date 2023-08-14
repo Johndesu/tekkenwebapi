@@ -1,12 +1,12 @@
-﻿namespace TekkenPortugal.WebApi.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TekkenPortugal.WebApi.Models.Domain
 {
     public class Article
     {
         public int Id { get; set; }
 
-        public int UserId { get; set; }
-
-        public User User { get; set; }
+        public User? User { get; set; }
 
         public string Hero { get; set; } = string.Empty;
 

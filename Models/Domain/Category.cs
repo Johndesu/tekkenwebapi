@@ -1,9 +1,12 @@
-﻿namespace TekkenPortugal.WebApi.Models
+﻿namespace TekkenPortugal.WebApi.Models.Domain
 {
     public class Category
     {
-        public int Id { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public int id { get; set; }
+
+        public string Description { get; set; }
+
+        public string UrlHandle { get; set; }
 
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
