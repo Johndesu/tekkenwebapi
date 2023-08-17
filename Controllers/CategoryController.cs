@@ -28,12 +28,33 @@ namespace TekkenPortugal.WebApi.Controllers
             foreach (var category in categories)
             {
                 response.Add(new CategoryDto { 
-                    Id = category.id,
+                    Id = category.Id,
                     Description = category.Description,
                     UrlHandle = category.UrlHandle,
                 });
             }
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetCategoryById(int id)
+        {
+            var existingCategory = await categoryRepository.GetById(id);
+
+            var response = new CategoryDto
+            {
+                Id = existingCategory.Id,
+                Description = existingCategory.Description,
+                UrlHandle = existingCategory.UrlHandle
+            };
+
+            if (existingCategory != null)
+            {
+                return Ok(response);
+            } else{ 
+                return NotFound(); 
+            }
         }
 
         [HttpPost]
@@ -57,6 +78,56 @@ namespace TekkenPortugal.WebApi.Controllers
 
             return Ok(response);
 
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> UpdateCategory(int id, UpdateCategoryRequestDto request)
+        {
+            // Convert DTO to Domain Model
+            var category = new Category
+            {
+                Id = id,
+                Description = request.Description,
+                UrlHandle = request.UrlHandle
+            };
+
+            category = await categoryRepository.UpdateAsync(category);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var response = new CategoryDto {
+                Id= category.Id,
+                Description = category.Description,
+                UrlHandle = category.UrlHandle
+            };
+
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            var category = await categoryRepository.DeleteAsync(id);
+
+            if(category == null)
+            {
+                return NotFound();
+            }
+
+            //Convert Domain Model to Dto
+            var resposne = new CategoryDto
+            {
+                Id= category.Id,
+                Description = category.Description,
+                UrlHandle = category.UrlHandle
+            };
+
+            return Ok(resposne);
         }
     }
 }

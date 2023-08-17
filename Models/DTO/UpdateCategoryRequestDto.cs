@@ -1,6 +1,6 @@
-﻿ namespace TekkenPortugal.WebApi.Models.DTO
+﻿namespace TekkenPortugal.WebApi.Models.DTO
 {
-    public class CreateCategoryRequestDto
+    public class UpdateCategoryRequestDto
     {
         public string Description { get; set; }
 
