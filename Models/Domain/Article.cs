@@ -18,6 +18,8 @@ namespace TekkenPortugal.WebApi.Models.Domain
 
         public string Content { get; set; } = string.Empty;
 
+        public string UrlHandle { get; set; } = string.Empty;
+
         public DateTime? PublishedAt { get; set; }
 
         public bool IsPublished { get; set; } = false;

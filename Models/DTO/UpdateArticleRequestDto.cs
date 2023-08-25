@@ -1,9 +1,7 @@
 ﻿namespace TekkenPortugal.WebApi.Models.DTO
 {
-    public class CreateArticleRequestDto
+    public class UpdateArticleRequestDto
     {
-        public int Id { get; set; } 
-
         public string Hero { get; set; } = string.Empty;
 
         public string Thumbnail { get; set; } = string.Empty;

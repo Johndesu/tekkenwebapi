@@ -40,17 +40,16 @@ namespace TekkenPortugal.WebApi.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
-            var existingCategory = await categoryRepository.GetById(id);
-
-            var response = new CategoryDto
-            {
-                Id = existingCategory.Id,
-                Description = existingCategory.Description,
-                UrlHandle = existingCategory.UrlHandle
-            };
+            var existingCategory = await categoryRepository.GetById(id);  
 
             if (existingCategory != null)
             {
+                var response = new CategoryDto
+                {
+                    Id = existingCategory.Id,
+                    Description = existingCategory.Description,
+                    UrlHandle = existingCategory.UrlHandle
+                };
                 return Ok(response);
             } else{ 
                 return NotFound(); 

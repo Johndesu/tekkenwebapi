@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TekkenPortugal.WebApi.Data;
-using TekkenPortugal.WebApi.Models.Domain;
 using TekkenPortugal.WebApi.Repositories.Implementation;
 using TekkenPortugal.WebApi.Repositories.Interface;
 
@@ -25,6 +24,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Data;
 using TekkenPortugal.WebApi.Data;
 using TekkenPortugal.WebApi.Models.Domain;
 using TekkenPortugal.WebApi.Repositories.Interface;
@@ -22,11 +23,42 @@ namespace TekkenPortugal.WebApi.Repositories.Implementation
             return article;
         }
 
-        public async Task<Article> GetAsync(Article article)
+        public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            await _context.Articles.ToListAsync();
+            return await _context.Articles.ToListAsync();
+        }
 
-            return article;
+        public async Task<Article?> GetById(int id)
+        {
+            return await _context.Articles.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Article?> UpdateAsync(Article article)
+        {
+            var existingArticle = await _context.Articles.FirstOrDefaultAsync(x => x.Id == article.Id);
+
+            if (existingArticle != null)
+            {
+                _context.Entry(existingArticle).CurrentValues.SetValues(article);
+                await _context.SaveChangesAsync();
+                return article;
+            }
+
+            return null;
+        }
+
+        public async Task<Article?> DeleteAsync(int id)
+        {
+            var existingArticle = await _context.Articles.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingArticle != null)
+            {
+                _context.Articles.Remove(existingArticle);
+                await _context.SaveChangesAsync();
+                return existingArticle;
+            }
+
+            return null;
         }
     }
 }
