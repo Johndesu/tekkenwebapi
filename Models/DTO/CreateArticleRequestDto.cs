@@ -21,5 +21,7 @@
         public bool IsPublished { get; set; } = false;
 
         public bool IsDeleted { get; set; }
+
+        public int[] Categories { get; set; }
     }
 }
