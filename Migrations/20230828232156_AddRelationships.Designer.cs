@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TekkenPortugal.WebApi.Data;
 
@@ -11,9 +12,11 @@ using TekkenPortugal.WebApi.Data;
 namespace TekkenPortugal.WebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230828232156_AddRelationships")]
+    partial class AddRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,12 +45,12 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<int>("ArticlesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagsId")
+                    b.Property<int>("Tagsid")
                         .HasColumnType("int");
 
-                    b.HasKey("ArticlesId", "TagsId");
+                    b.HasKey("ArticlesId", "Tagsid");
 
-                    b.HasIndex("TagsId");
+                    b.HasIndex("Tagsid");
 
                     b.ToTable("ArticleTag");
                 });
@@ -57,12 +60,12 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<int>("RolesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersId")
+                    b.Property<int>("Usersid")
                         .HasColumnType("int");
 
-                    b.HasKey("RolesId", "UsersId");
+                    b.HasKey("RolesId", "Usersid");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("Usersid");
 
                     b.ToTable("RoleUser");
                 });
@@ -114,12 +117,12 @@ namespace TekkenPortugal.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("Userid")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Userid");
 
                     b.ToTable("Articles");
                 });
@@ -154,38 +157,6 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TekkenPortugal.WebApi.Models.Domain.ImageMedia", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FileExtenstion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImagesMedia");
-                });
-
             modelBuilder.Entity("TekkenPortugal.WebApi.Models.Domain.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -213,11 +184,11 @@ namespace TekkenPortugal.WebApi.Migrations
 
             modelBuilder.Entity("TekkenPortugal.WebApi.Models.Domain.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -232,18 +203,18 @@ namespace TekkenPortugal.WebApi.Migrations
                     b.Property<DateTime?>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("TekkenPortugal.WebApi.Models.Domain.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -272,7 +243,7 @@ namespace TekkenPortugal.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Users");
                 });
@@ -302,7 +273,7 @@ namespace TekkenPortugal.WebApi.Migrations
 
                     b.HasOne("TekkenPortugal.WebApi.Models.Domain.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsId")
+                        .HasForeignKey("Tagsid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -317,7 +288,7 @@ namespace TekkenPortugal.WebApi.Migrations
 
                     b.HasOne("TekkenPortugal.WebApi.Models.Domain.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("Usersid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -326,7 +297,7 @@ namespace TekkenPortugal.WebApi.Migrations
                 {
                     b.HasOne("TekkenPortugal.WebApi.Models.Domain.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("Userid");
 
                     b.Navigation("User");
                 });

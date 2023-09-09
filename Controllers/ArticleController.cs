@@ -16,10 +16,15 @@ namespace TekkenPortugal.WebApi.Controllers
     public class ArticleController : ControllerBase
     {
         public readonly IArticleRepository articleRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public ArticleController(IArticleRepository articleRepository)
+        public ArticleController(
+            IArticleRepository articleRepository,
+            ICategoryRepository categoryRepository
+        )
         {
             this.articleRepository = articleRepository;
+            this.categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -43,7 +48,14 @@ namespace TekkenPortugal.WebApi.Controllers
                     PublishedAt = article.PublishedAt,
                     IsPublished = article.IsPublished,
                     LastUpdated = article.LastUpdated,
-                    IsDeleted = article.IsDeleted
+                    IsDeleted = article.IsDeleted,
+                    Categories = article.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Description = x.Description,
+                        UrlHandle = x.UrlHandle
+                    }
+                    ).ToList()
                 });
             }
 
@@ -72,7 +84,14 @@ namespace TekkenPortugal.WebApi.Controllers
                     PublishedAt = existingArticle.PublishedAt,
                     IsPublished = existingArticle.IsPublished,
                     LastUpdated = existingArticle.LastUpdated,
-                    IsDeleted = existingArticle.IsDeleted
+                    IsDeleted = existingArticle.IsDeleted,
+                    Categories = existingArticle.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Description = x.Description,
+                        UrlHandle = x.UrlHandle
+                    }
+                    ).ToList()
                 };
                 return Ok(response);
             }
@@ -100,19 +119,40 @@ namespace TekkenPortugal.WebApi.Controllers
                 PublishedAt = request.PublishedAt,
                 IsPublished = request.IsPublished,
                 IsDeleted = request.IsDeleted,
-
+                Categories = new List<Category>()
             };
 
-            await articleRepository.CreateAsync(article);
+            foreach (var categoryInt in request.Categories)
+            {
+                var existingCategory = await categoryRepository.GetById(categoryInt);
+                if (existingCategory != null)
+                {
+                    article.Categories.Add(existingCategory);
+                }
+            }
 
-           
+            article = await articleRepository.CreateAsync(article);
 
             // Dpomain model to DTO
-
             var response = new ArticleDto
             {
                 Id = article.Id,
-                Title = article.Title
+                Title = article.Title,
+                Thumbnail = article.Thumbnail,
+                Hero = article.Hero,
+                Summary = article.Summary,
+                Content = article.Content,
+                PublishedAt = article.PublishedAt,
+                IsPublished = article.IsPublished,
+                UrlHandle = article.UrlHandle,
+                Categories = article.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    UrlHandle = x.UrlHandle
+                }
+                ).ToList()
+                
 
             };
 
@@ -138,7 +178,17 @@ namespace TekkenPortugal.WebApi.Controllers
                 PublishedAt = request.PublishedAt,
                 IsPublished = request.IsPublished,
                 IsDeleted = request.IsDeleted,
+                Categories = new List<Category>()
             };
+
+            foreach (var categoryId in request.Categories)
+            {
+                var existingCategory = await categoryRepository.GetById(categoryId);
+                if (existingCategory != null)
+                {
+                    article.Categories.Add(existingCategory);
+                }
+            }
 
             article = await articleRepository.UpdateAsync(article);
 
@@ -150,7 +200,21 @@ namespace TekkenPortugal.WebApi.Controllers
             var response = new ArticleDto
             {
                 Id = article.Id,
-                Title = article.Title
+                Title = article.Title,
+                Thumbnail = article.Thumbnail,
+                Hero = article.Hero,
+                Summary = article.Summary,
+                Content = article.Content,
+                PublishedAt = article.PublishedAt,
+                IsPublished = article.IsPublished,
+                UrlHandle = article.UrlHandle,
+                Categories = article.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    UrlHandle = x.UrlHandle
+                }
+                ).ToList()
             };
 
             return Ok(response);

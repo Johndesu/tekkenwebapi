@@ -28,8 +28,8 @@ namespace TekkenPortugal.WebApi.Models.DTO
 
         public bool IsDeleted { get; set; } = false;
 
-        public ICollection<Category> Categories { get; set; } = new List<Category>();
+        public ICollection<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
 
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public ICollection<TagDto> Tags { get; set; } = new List<TagDto>();
     }
 }

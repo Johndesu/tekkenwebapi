@@ -25,21 +25,26 @@ namespace TekkenPortugal.WebApi.Repositories.Implementation
 
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Articles.ToListAsync();
+            return await _context.Articles.Include(x => x.Categories).ToListAsync();
         }
 
         public async Task<Article?> GetById(int id)
         {
-            return await _context.Articles.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Articles.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Article?> UpdateAsync(Article article)
         {
-            var existingArticle = await _context.Articles.FirstOrDefaultAsync(x => x.Id == article.Id);
+            var existingArticle = await _context.Articles.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == article.Id);
 
             if (existingArticle != null)
             {
+                // Update Article
                 _context.Entry(existingArticle).CurrentValues.SetValues(article);
+
+                // Update Category
+                existingArticle.Categories = article.Categories;
+
                 await _context.SaveChangesAsync();
                 return article;
             }

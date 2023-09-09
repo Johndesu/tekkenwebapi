@@ -30,8 +30,8 @@ namespace TekkenPortugal.WebApi.Models.Domain
 
         public bool IsDeleted { get; set; } = false;
 
-        public ICollection<Category> Categories { get; set; } = new List<Category>();
+        public ICollection<Category> Categories { get; set; }
 
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public ICollection<Tag> Tags { get; set; }
     }
 }
