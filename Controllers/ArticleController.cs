@@ -68,39 +68,77 @@ namespace TekkenPortugal.WebApi.Controllers
         {
             var existingArticle = await articleRepository.GetById(id);
 
-            
-
-            if (existingArticle != null)
-            {
-                var response = new ArticleDto
-                {
-                    Id = existingArticle.Id,
-                    Title = existingArticle.Title,
-                    Thumbnail = existingArticle.Thumbnail,
-                    UrlHandle = existingArticle.UrlHandle,
-                    Hero = existingArticle.Hero,
-                    Summary = existingArticle.Summary,
-                    Content = existingArticle.Content,
-                    PublishedAt = existingArticle.PublishedAt,
-                    IsPublished = existingArticle.IsPublished,
-                    LastUpdated = existingArticle.LastUpdated,
-                    IsDeleted = existingArticle.IsDeleted,
-                    Categories = existingArticle.Categories.Select(x => new CategoryDto
-                    {
-                        Id = x.Id,
-                        Description = x.Description,
-                        UrlHandle = x.UrlHandle
-                    }
-                    ).ToList()
-                };
-                return Ok(response);
-            }
-            else
+            if (existingArticle is null)
             {
                 return NotFound();
             }
+
+            var response = new ArticleDto
+            {
+                Id = existingArticle.Id,
+                Title = existingArticle.Title,
+                Thumbnail = existingArticle.Thumbnail,
+                UrlHandle = existingArticle.UrlHandle,
+                Hero = existingArticle.Hero,
+                Summary = existingArticle.Summary,
+                Content = existingArticle.Content,
+                PublishedAt = existingArticle.PublishedAt,
+                IsPublished = existingArticle.IsPublished,
+                LastUpdated = existingArticle.LastUpdated,
+                IsDeleted = existingArticle.IsDeleted,
+                Categories = existingArticle.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    UrlHandle = x.UrlHandle
+                }
+                ).ToList()
+            };
+
+            return Ok(response);
+            
         }
 
+
+        // GET: {apiBaseUrl}/api/article/{urlhandle}
+        [HttpGet]
+        [Route("{urlHandle}")]
+        public async Task<IActionResult> GetArticleByUrl([FromRoute] string urlHandle)
+        {
+            // Get article details from repository
+            var existingArticle = await articleRepository.GetByUrlHandle(urlHandle);
+
+
+            if (existingArticle is null)
+            {
+                return NotFound();
+            }
+            var response = new ArticleDto
+            {
+                Id = existingArticle.Id,
+                Title = existingArticle.Title,
+                Thumbnail = existingArticle.Thumbnail,
+                UrlHandle = existingArticle.UrlHandle,
+                Hero = existingArticle.Hero,
+                Summary = existingArticle.Summary,
+                Content = existingArticle.Content,
+                PublishedAt = existingArticle.PublishedAt,
+                IsPublished = existingArticle.IsPublished,
+                LastUpdated = existingArticle.LastUpdated,
+                IsDeleted = existingArticle.IsDeleted,
+                Categories = existingArticle.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    UrlHandle = x.UrlHandle
+                }
+                ).ToList()
+            };
+
+
+            return Ok(response);
+
+        }
 
         //Create the Article Action
         [HttpPost]
