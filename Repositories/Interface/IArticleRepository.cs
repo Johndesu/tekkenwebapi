@@ -10,6 +10,8 @@ namespace TekkenPortugal.WebApi.Repositories.Interface
 
         Task<Article?> GetById(int id);
 
+        Task<Article?> GetByUrlHandle(string urlHandle);
+
         Task<Article?> UpdateAsync(Article Article);
 
         Task<Article?> DeleteAsync(int id);

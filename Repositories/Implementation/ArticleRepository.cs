@@ -33,6 +33,11 @@ namespace TekkenPortugal.WebApi.Repositories.Implementation
             return await _context.Articles.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Article?> GetByUrlHandle(string urlHandle)
+        {
+            return await _context.Articles.Include(x => x.Categories).FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
+        }
+
         public async Task<Article?> UpdateAsync(Article article)
         {
             var existingArticle = await _context.Articles.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == article.Id);
@@ -65,5 +70,6 @@ namespace TekkenPortugal.WebApi.Repositories.Implementation
 
             return null;
         }
+
     }
 }
