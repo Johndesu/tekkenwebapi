@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -142,6 +143,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         //Create the Article Action
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateArticle(CreateArticleRequestDto request)
         {
             // Map DTO to Domain Model
@@ -201,6 +203,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateArticle(int id, UpdateArticleRequestDto request)
         {
             // Convert DTO to Domain Model
@@ -260,6 +263,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
             var article = await articleRepository.DeleteAsync(id);

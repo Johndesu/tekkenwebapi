@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TekkenPortugal.WebApi.Models.Domain;
 using TekkenPortugal.WebApi.Models.DTO;
@@ -59,6 +60,7 @@ namespace TekkenPortugal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateTag(CreateTagRequestDto request)
         {
             //Map DTO to Domain Model
@@ -80,6 +82,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateTag(int id, UpdateTagRequestDto request)
         {
             // Convert DTO to Domain Model
@@ -107,6 +110,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteTag(int id)
         {
             var tag = await tagRepository.DeleteAsync(id);

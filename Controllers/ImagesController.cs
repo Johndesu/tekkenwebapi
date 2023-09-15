@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TekkenPortugal.WebApi.Models.Domain;
 using TekkenPortugal.WebApi.Models.DTO;
@@ -48,6 +49,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         // POST: {apibaseurl}/api/images
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UploadImage(
             [FromForm] IFormFile file,
             [FromForm] string fileName,
@@ -89,6 +91,7 @@ namespace TekkenPortugal.WebApi.Controllers
         //DELETE: {apibaseurl}/api/images
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteImage(int id)
         {
             var articleImage = await imageRepository.DeleteAsync(id);

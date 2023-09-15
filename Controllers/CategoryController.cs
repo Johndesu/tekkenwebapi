@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TekkenPortugal.WebApi.Data;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TekkenPortugal.WebApi.Models.Domain;
 using TekkenPortugal.WebApi.Models.DTO;
 using TekkenPortugal.WebApi.Repositories.Interface;
@@ -19,6 +19,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
 
         [HttpGet]
+     
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await categoryRepository.GetAllASync();
@@ -57,6 +58,7 @@ namespace TekkenPortugal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateCategory(CreateCategoryRequestDto request)
         {
             //Map DTO to Domain Model
@@ -81,6 +83,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateCategory(int id, UpdateCategoryRequestDto request)
         {
             // Convert DTO to Domain Model
@@ -109,6 +112,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var category = await categoryRepository.DeleteAsync(id);
