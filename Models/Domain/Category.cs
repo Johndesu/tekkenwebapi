@@ -4,9 +4,9 @@
     {
         public int Id { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string UrlHandle { get; set; }
+        public string? UrlHandle { get; set; }
 
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 

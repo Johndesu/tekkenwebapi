@@ -6,8 +6,6 @@ namespace TekkenPortugal.WebApi.Models.Domain
     {
         public int Id { get; set; }
 
-        public User? User { get; set; }
-
         public string? Hero { get; set; }
 
         public string? Thumbnail { get; set; }
