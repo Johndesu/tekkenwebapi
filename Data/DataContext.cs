@@ -14,5 +14,7 @@ namespace TekkenPortugal.WebApi.Data
         public DbSet<Tag> Tags { get; set; }
 
         public DbSet<ImageMedia> ImagesMedia { get; set; }
+
+        public DbSet<Platform> Platforms { get; set; }
     }
 }
