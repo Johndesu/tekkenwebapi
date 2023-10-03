@@ -16,5 +16,7 @@ namespace TekkenPortugal.WebApi.Data
         public DbSet<ImageMedia> ImagesMedia { get; set; }
 
         public DbSet<Platform> Platforms { get; set; }
+
+        public DbSet<Member> Members { get; set; }
     }
 }
