@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Diagnostics.Metrics;
 using TekkenPortugal.WebApi.Models.Domain;
 using TekkenPortugal.WebApi.Models.DTO;
 using TekkenPortugal.WebApi.Repositories.Interface;
@@ -61,6 +60,7 @@ namespace TekkenPortugal.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateMember(CreateMemberRequestDto request)
         {
             //Map DTO to Domain Model
@@ -88,6 +88,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateMember(int id, UpdateMemberRequestDto request)
         {
             // Convert DTO to Domain Model
@@ -121,6 +122,7 @@ namespace TekkenPortugal.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteMember(int id)
         {
             var member = await memberRepository.DeleteAsync(id);

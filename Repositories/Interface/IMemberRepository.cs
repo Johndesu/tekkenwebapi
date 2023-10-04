@@ -13,6 +13,5 @@ namespace TekkenPortugal.WebApi.Repositories.Interface
         Task<Member?> UpdateAsync(Member member);
 
         Task<Member?> DeleteAsync(int id);
-
     }
 }
