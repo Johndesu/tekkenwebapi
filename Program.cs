@@ -76,6 +76,7 @@ builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 var authenticationEnabled = builder.Configuration.GetValue<bool>("AuthenticationEnabled");

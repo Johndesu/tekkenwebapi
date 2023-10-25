@@ -18,5 +18,7 @@ namespace TekkenPortugal.WebApi.Data
         public DbSet<Platform> Platforms { get; set; }
 
         public DbSet<Member> Members { get; set; }
+
+        public DbSet<Game> Games { get; set; }
     }
 }
